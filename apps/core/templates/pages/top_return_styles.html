@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Returns Dashboard
+{% endblock title %}
+
+
+{% block content %}
+
+<table>
+  <thead>
+    <tr>
+      <th>Top 10 Styles</th>
+      <th>RR%</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for style, rr in top_return_styles.items %}
+      <tr>
+          <th>{{style}}</th>
+          <th>{{rr}}%</th>
+      </tr>
+    {% endfor %}
+    
+  </tbody>
+</table>
+
+
+{% endblock content %}
+
+

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import core_return_reasons_sku
+from .models import core_return_reasons_sku, DashboardPanel
 from django.db.models import Avg, Sum
 import pygal
 from pygal import Config
@@ -80,27 +80,20 @@ def return_reason_percentages():
 
 #--------------------------------------------------------------------------------------------#
 
-
 def bar_chart(request):
-    data = return_reason_percentages()
-    config = Config()
-    # TODO figure out x-labels and show y-axis as %
-    bar_chart = pygal.Bar(show_legend = False, x_label_rotation=50, show_x_labels=True)
-    bar_chart.title = 'Return Reason %'
-    for reason, avg in data.items():
-        bar_chart.add(reason, avg)
-
-    chart_svg_as_datauri = bar_chart.render_data_uri()
+    # panels = DashboardPanel.objects.filter(category: category)
+    panels = DashboardPanel.objects.all()
+    # chart = DashboardPanel.objects.get(top_return_styles)
 
     context = {
-        "rendered_chart": chart_svg_as_datauri,
+        "panels": panels,
+        # "charts": charts,
     }
 
     return render(request, 'pages/return_reasons.html', context)
 
 
 #--------------------------------------------------------------------------------------------#
-
 
 def highest_returned_styles(request):
     #Pulls styles and assigns to variable
@@ -154,6 +147,24 @@ def about(request):
     }
 
     return render(request, 'pages/about.html', context)
+
+
+# def return_reason_bar_chart(request):
+#     data = return_reason_percentages()
+#     config = Config()
+#     # TODO figure out x-labels and show y-axis as %
+#     bar_chart = pygal.Bar(show_legend = False, x_label_rotation=50, show_x_labels=True)
+#     bar_chart.title = 'Return Reason %'
+#     for reason, avg in data.items():
+#         bar_chart.add(reason, avg)
+
+#     chart_svg_as_datauri = bar_chart.render_data_uri()
+
+#     context = {
+#         "rendered_chart": chart_svg_as_datauri,
+#     }
+
+#     return render(request, 'pages/return_reasons.html', context)
 
 
 # def avg_return_counts_by_category():

@@ -6,9 +6,54 @@
 
 
 {% block content %}
+{% for panel in panels %}
+  <h1>{{ panel.dashboard_title }}</h1>
+  <!-- <embed type="image/svg+xml" src="{{ rendered_chart|safe }}"/> -->
+  <embed type="image/svg+xml" src="{{ panel.return_reason_bar_chart|safe }}"/>
+{%endfor%}
 
+<!-- <div>
+  <table>
+    <thead>
+      <tr>
+        <th>Top 10 Styles</th>
+        <th>RR%</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for panel in panels %}
+        {% for style, rr in highest_returned_styles.items %}
+          <tr>
+            <th>{{style}}</th>
+            <th>{{rr}}%</th>
+          </tr>
+        {% endfor %}
+      {% endfor %}
+      
+    </tbody>
+  </table>
+</div> -->
 
-<embed type="image/svg+xml" src="{{ rendered_chart|safe }}"/>
-
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th>Top 10 Styles</th>
+        <th>RR%</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for panel in panels %}
+        <!-- {% for style, rr in top_return_styles.items %} -->
+        <tr>
+          <th>{{style}}</th>
+          <th>{{rr}}%</th>
+        </tr>
+        <!-- {% endfor %} -->
+      {% endfor %}
+      
+    </tbody>
+  </table>
+</div>
 
 {% endblock content %}

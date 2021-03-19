@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Returns Dashboard
+{% endblock title %}
+
+
+{% block content %}
+
+{% load cache %}
+{% cache 86400 cat_rr %}
+
+  <div>
+    <table class = "table-styling">
+      <thead>
+        <tr>
+          <th>Product Category</th>
+          <th>Return Rate %</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for category_rate in category_rates %}
+            {% for name, percentage in category_rate.cat_rr.items %}
+                <tr>
+                    <th>{{name}}</th>
+                    <th>{{percentage}}%</th>
+                </tr>
+            {% endfor %}
+        {% endfor %}
+        
+      </tbody>
+    </table>
+  </div>
+
+{% endcache %}
+{% endblock content %}
+
+
+        <!-- {% for panel in panels %}
+          {% for name, percentage in panel.cat_rr.items %}
+            <tr>
+                <th>{{name}}</th>
+                <th>{{percentage}}%</th>
+            </tr>
+          {% endfor %}
+        {% endfor %} -->
+
+
+
+<!-- CODE PURGATORY -->
+<!-- <div class="jumbotron">
+  <h1 class="display-4">My Site</h1>
+  <p class="lead">This is a simple Jumbotron component from Bootstrap 4.</p>
+  <hr class="my-4">
+  <p>Edit this to include your content.</p>
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="{% url 'about' %}" role="button">Learn more</a>
+  </p>
+</div> -->
+
+

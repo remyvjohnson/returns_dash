@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load cache %}
+
 
 {% block title %}
   Returns Dashboard
@@ -6,7 +8,7 @@
 
 
 {% block content %}
-
+<!-- 
 <table>
   <thead>
     <tr>
@@ -23,8 +25,82 @@
     {% endfor %}
     
   </tbody>
-</table>
+</table> -->
 
+
+{% cache 86400 highest_returned_styles %}
+<div>
+  <table class = "table-styling">
+    <thead>
+      <tr>
+        <th>Top 10 Styles</th>
+        <th>Return Rate %</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for style in top_return_styles %}
+          {% for style, rr in style.highest_returned_styles.items %}
+              <tr>
+                  <th>{{style}}</th>
+                  <th>{{rr}}%</th>
+              </tr>
+          {% endfor %}
+      {% endfor %}
+      
+    </tbody>
+  </table>
+</div>
+
+{% endcache %}
+
+<!-- <div>
+  <table class = "table-styling">
+    <thead>
+      <tr>
+        <th>Top 10 Styles</th>
+        <th>Return Rate %</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if dashboard_title == 'Top Return Styles Table' %}
+        {% for style in top_return_styles %}
+          {% for style, rr in style.highest_returned_styles.items %}
+              <tr>
+                  <th>{{style}}</th>
+                  <th>{{rr}}%</th>
+              </tr>
+          {% endfor %}
+        {% endfor %}
+      {% endif %}
+      
+    </tbody>
+  </table>
+</div> -->
+
+<!-- {% for panel in panels %}
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th>Top 10 Styles</th>
+          <th>RR%</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        panel.highest_returned_styles.items
+          {% for style, rr in panel.highest_returned_styles.items %}
+          <tr>
+            <th>{{style}}</th>
+            <th>{{rr}}%</th>
+          </tr>
+          {% endfor %}
+        
+        
+      </tbody>
+    </table>
+  </div>
+{% endfor %} -->
 
 {% endblock content %}
 

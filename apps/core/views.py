@@ -8,34 +8,10 @@ from collections import OrderedDict, Counter
 
 
 def home(request):
-    category_names = [
-        'Tops',
-        'Bottoms',
-        'Dresses',
-        'Outerwear',
-    ]
-
-    return_percentages_by_category = {}
-    for name in category_names:
-        #Pulls and filters data; then calcs count and sales u sum
-        return_sum = core_return_reasons_sku.objects.filter(
-        ProductCategory=name).aggregate(Sum('Count'))
-        return_sum_int = round(return_sum['Count__sum']) 
-
-        sales_unit_sum = core_return_reasons_sku.objects.filter(
-        ProductCategory=name).aggregate(Sum('SalesUnits'))
-        sales_unit_sum_int = round(sales_unit_sum['SalesUnits__sum']) 
-
-        # Converts to int, % and rounds 1 decimal place
-        return_percentage = round((return_sum_int/sales_unit_sum_int)*100,1)  
-        
-        #adds to dict
-        return_percentages_by_category[name] = return_percentage
-        # print (name, return_percentage)
-
+    dashboard_panels = DashboardPanel.objects.all()
 
     context = {
-        'category_data': return_percentages_by_category,
+        "dashboard_panels": dashboard_panels,
     }
     
     return render(request, 'pages/home.html', context)
@@ -43,51 +19,23 @@ def home(request):
 
 #--------------------------------------------------------------------------------------------#
 
+def cat_rr(request):
+    category_rates = DashboardPanel.objects.all()
 
-def return_reason_percentages():
-    #Pulls all reasons and assigns to variable
-    full_list = core_return_reasons_sku.objects.values('Reason')
-    # print('still working')
+    context = {
+        "category_rates": category_rates,
+    }
 
-    #Loops through full_list and create a list of return reasons (no dups)
-    rr_list = []
-    for reason in range(len(full_list)):
-        if full_list[reason]['Reason'] not in rr_list:
-            rr_list.append(full_list[reason]['Reason'])               
-    # print(rr_list)
- 
-    #Loops through rr_list and create a dict of reasons and rr%
-    return_reason_percentages = {}
-    for reason in rr_list:
-        #Pulls and filters data; then calcs count and sales u sum
-        return_sum = core_return_reasons_sku.objects.filter(
-        Reason=reason).aggregate(Sum('Count'))
-        return_sum_int = round(return_sum['Count__sum'])
-
-        sales_unit_sum = core_return_reasons_sku.objects.filter(
-        Reason=reason).aggregate(Sum('SalesUnits'))
-        sales_unit_sum_int = round(sales_unit_sum['SalesUnits__sum'])
-
-        # Converts to int, % and rounds 1 decimal place
-        return_percentage = round((return_sum_int/sales_unit_sum_int)*100,1) 
-
-        #adds to dict
-        return_reason_percentages[reason] = return_percentage
-        # print (reason, return_percentage)
-    
-    return return_reason_percentages
+    return render(request, 'pages/rr_by_cat.html', context)
 
 
 #--------------------------------------------------------------------------------------------#
 
-def bar_chart(request):
-    # panels = DashboardPanel.objects.filter(category: category)
-    panels = DashboardPanel.objects.all()
-    # chart = DashboardPanel.objects.get(top_return_styles)
+def return_reasons(request):
+    charts = DashboardPanel.objects.all()
 
     context = {
-        "panels": panels,
-        # "charts": charts,
+        "charts": charts,
     }
 
     return render(request, 'pages/return_reasons.html', context)
@@ -96,40 +44,10 @@ def bar_chart(request):
 #--------------------------------------------------------------------------------------------#
 
 def highest_returned_styles(request):
-    #Pulls styles and assigns to variable
-    full_style_list = core_return_reasons_sku.objects.values('ProductName')
-
-    #Loops through full_style_list and create a list of styles (no dups)
-    style_list = []
-    for style in range(len(full_style_list)):
-        if full_style_list[style]['ProductName'] not in style_list:
-            style_list.append(full_style_list[style]['ProductName'])                 
-    # print(style_list)
- 
-    style_list_rr_percentages = {}
-    for style in style_list:
-        #Pulls and filters data; then calcs count and sales u sum
-        return_sum = core_return_reasons_sku.objects.filter(
-        ProductName=style).aggregate(Sum('Count'))
-        return_sum_int = round(return_sum['Count__sum'])
-
-        sales_unit_sum = core_return_reasons_sku.objects.filter(
-        ProductName=style).aggregate(Sum('SalesUnits'))
-        sales_unit_sum_int = round(sales_unit_sum['SalesUnits__sum'])
-
-        # Converts to int, % and rounds 1 decimal place
-        return_percentage = round((return_sum_int/sales_unit_sum_int)*100,1) 
-
-        #adds to dict
-        style_list_rr_percentages[style] = return_percentage
-        # print (style, return_percentage)
-
-    #pulls top 10 styles and rr%   
-    top_return_styles = dict(Counter(style_list_rr_percentages).most_common(10))
-    # print(top_return_styles)
+    top_return_styles = DashboardPanel.objects.all()
 
     context = {
-        'top_return_styles': top_return_styles,
+        "top_return_styles": top_return_styles,
     }
 
     return render(request, 'pages/top_return_styles.html', context)
@@ -141,12 +59,12 @@ def highest_returned_styles(request):
 
 
 
-#----------------------CODE PREGATORY---------------------------#
-def about(request):
-    context = {
-    }
+#----------------------CODE PURGATORY---------------------------#
+# def about(request):
+#     context = {
+#     }
 
-    return render(request, 'pages/about.html', context)
+#     return render(request, 'pages/about.html', context)
 
 
 # def return_reason_bar_chart(request):

@@ -7,32 +7,24 @@
 
 {% block content %}
 
-<div>
-  <table class = "table-styling">
-    <thead>
-      <tr>
-        <th>Product Category</th>
-        <th>Return Rate %</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for name, percentage in category_data.items %}
-        <tr>
-            <th>{{name}}</th>
-            <th>{{percentage}}%</th>
-        </tr>
-      {% endfor %}
-      
-    </tbody>
-  </table>
-</div>
+{% load cache %}
+{% cache 86400 home %}
+
+  {% for panel in dashboard_panels %}
+    <div class="shadow border">
+    <p>{{ panel.dashboard_title }}</p>
+    <a href="{{ panel.dashboard_link }}">View Dashboard</a>
+    </div>
+  {% endfor %}
+
+{% endcache %}
 
 {% endblock content %}
 
 
 
 
-<!-- CODE PREGATORY -->
+<!-- CODE PURGATORY -->
 <!-- <div class="jumbotron">
   <h1 class="display-4">My Site</h1>
   <p class="lead">This is a simple Jumbotron component from Bootstrap 4.</p>
@@ -41,6 +33,6 @@
   <p class="lead">
     <a class="btn btn-primary btn-lg" href="{% url 'about' %}" role="button">Learn more</a>
   </p>
-</div> -->
+</div>
 
 

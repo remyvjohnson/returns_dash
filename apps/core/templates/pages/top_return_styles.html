@@ -8,25 +8,6 @@
 
 
 {% block content %}
-<!-- 
-<table>
-  <thead>
-    <tr>
-      <th>Top 10 Styles</th>
-      <th>RR%</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for style, rr in top_return_styles.items %}
-      <tr>
-          <th>{{style}}</th>
-          <th>{{rr}}%</th>
-      </tr>
-    {% endfor %}
-    
-  </tbody>
-</table> -->
-
 
 {% cache 86400 highest_returned_styles %}
 <div>
@@ -39,12 +20,14 @@
     </thead>
     <tbody>
       {% for style in top_return_styles %}
+        {%if style.dashboard_title == 'Top Return Styles Table' %}
           {% for style, rr in style.highest_returned_styles.items %}
-              <tr>
-                  <th>{{style}}</th>
-                  <th>{{rr}}%</th>
-              </tr>
+            <tr>
+              <th>{{style}}</th>
+              <th>{{rr}}%</th>
+            </tr>
           {% endfor %}
+        {%endif%}
       {% endfor %}
       
     </tbody>
@@ -53,54 +36,6 @@
 
 {% endcache %}
 
-<!-- <div>
-  <table class = "table-styling">
-    <thead>
-      <tr>
-        <th>Top 10 Styles</th>
-        <th>Return Rate %</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% if dashboard_title == 'Top Return Styles Table' %}
-        {% for style in top_return_styles %}
-          {% for style, rr in style.highest_returned_styles.items %}
-              <tr>
-                  <th>{{style}}</th>
-                  <th>{{rr}}%</th>
-              </tr>
-          {% endfor %}
-        {% endfor %}
-      {% endif %}
-      
-    </tbody>
-  </table>
-</div> -->
-
-<!-- {% for panel in panels %}
-  <div>
-    <table>
-      <thead>
-        <tr>
-          <th>Top 10 Styles</th>
-          <th>RR%</th>
-        </tr>
-      </thead>
-      <tbody>
-        
-        panel.highest_returned_styles.items
-          {% for style, rr in panel.highest_returned_styles.items %}
-          <tr>
-            <th>{{style}}</th>
-            <th>{{rr}}%</th>
-          </tr>
-          {% endfor %}
-        
-        
-      </tbody>
-    </table>
-  </div>
-{% endfor %} -->
 
 {% endblock content %}
 

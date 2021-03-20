@@ -20,12 +20,14 @@
       </thead>
       <tbody>
         {% for category_rate in category_rates %}
+          {%if category_rate.dashboard_title == 'Category Return Rate Table' %}
             {% for name, percentage in category_rate.cat_rr.items %}
-                <tr>
-                    <th>{{name}}</th>
-                    <th>{{percentage}}%</th>
-                </tr>
+              <tr>
+                <th>{{name}}</th>
+                <th>{{percentage}}%</th>
+              </tr>
             {% endfor %}
+          {%endif%}
         {% endfor %}
         
       </tbody>
@@ -34,28 +36,3 @@
 
 {% endcache %}
 {% endblock content %}
-
-
-        <!-- {% for panel in panels %}
-          {% for name, percentage in panel.cat_rr.items %}
-            <tr>
-                <th>{{name}}</th>
-                <th>{{percentage}}%</th>
-            </tr>
-          {% endfor %}
-        {% endfor %} -->
-
-
-
-<!-- CODE PURGATORY -->
-<!-- <div class="jumbotron">
-  <h1 class="display-4">My Site</h1>
-  <p class="lead">This is a simple Jumbotron component from Bootstrap 4.</p>
-  <hr class="my-4">
-  <p>Edit this to include your content.</p>
-  <p class="lead">
-    <a class="btn btn-primary btn-lg" href="{% url 'about' %}" role="button">Learn more</a>
-  </p>
-</div> -->
-
-

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load cache %}
+
 
 
 {% block title %}
@@ -9,22 +9,23 @@
 
 {% block content %}
 
-{% cache 86400 highest_returned_styles %}
+<!-- {% load cache %} -->
+<!-- {% cache 86400 highest_returned_styles %} -->
 <div>
-  <table class = "table-styling">
+  <table class = "CategoryTable">
     <thead>
       <tr>
-        <th>Top 10 Styles</th>
-        <th>Return Rate %</th>
+        <th class="CategoryTable-Titles">Top 10 Styles</th>
+        <th class="CategoryTable-Titles">Return Rate %</th>
       </tr>
     </thead>
     <tbody>
       {% for style in top_return_styles %}
         {%if style.dashboard_title == 'Top Return Styles Table' %}
           {% for style, rr in style.highest_returned_styles.items %}
-            <tr>
-              <th>{{style}}</th>
-              <th>{{rr}}%</th>
+            <tr class="CategoryTable-Rows">
+              <th class="CategoryTable-Content">{{style}}</th>
+              <th class="CategoryTable-Content">{{rr}}%</th>
             </tr>
           {% endfor %}
         {%endif%}
@@ -34,7 +35,7 @@
   </table>
 </div>
 
-{% endcache %}
+<!-- {% endcache %} -->
 
 
 {% endblock content %}

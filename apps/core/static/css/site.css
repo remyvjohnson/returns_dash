@@ -1,0 +1,98 @@
+/* Custom CSS goes here */
+.GridContainer {
+    display: grid;
+    grid-template-columns: 1fr 80% 1fr;
+    grid-template-rows: 1fr 80%;
+    row-gap: 30px;
+    grid-template-areas: 
+    "nav nav nav"
+    "leftmargin content rightmargin";
+}
+
+.NavBar {
+    grid-area: nav;
+    background: #d8e3e7;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 5px;
+    border: 2px solid rgb(121, 118, 118);
+    /* top: 0; */
+    height: 60px;
+}
+
+.NavBar-navLink {
+    text-decoration: none;
+    font-size: 15pt;
+    font-weight: bold;
+    background: #126e82;
+    color: #51c4d3;
+    padding: 10px;
+    border: 2px solid #d8e3e7;
+    /* border: 2px solid rgb(121, 118, 118) */
+    border-radius: 10px;
+}
+
+.MainContent {
+    grid-area: content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* margin-top: 60px; */
+}
+
+.Dashboard {   
+    background: #d8e3e7;
+    padding: 5px;
+    border: 2px solid rgb(121, 118, 118);
+    width: 800px;
+    margin: 10px;
+    text-align: center;   
+    align-content: center;
+    transition: 0.1s;
+}
+
+.Dashboard:hover {
+    background: #51c4d3;
+    box-shadow: 2px 2px 5px rgb(121, 118, 118);
+}
+
+.Dashboard-Title {
+    color: rgb(145, 143, 143);
+}
+
+.Dashboard-Link {
+    font-size: 20pt;
+    color: #126e82;
+}
+
+.CategoryTable {
+    border: 2px solid rgb(121, 118, 118);
+    border-collapse: collapse;
+    width: 600px;
+}
+
+.CategoryTable-Titles {
+    border: 2px solid rgb(121, 118, 118);
+    color: rgb(71, 70, 70);
+    background: #d8e3e7;
+    font-size: larger;
+    padding: 15px;
+}
+
+.CategoryTable-Rows {
+    transition: .1s;
+}
+
+.CategoryTable-Rows:hover {
+    background: lightyellow;
+}
+
+.CategoryTable-Content {
+    border: 2px solid rgb(121, 118, 118);
+    color: rgb(71, 70, 70);
+    padding: 15px;
+    font-size: large;
+}
+

@@ -7,17 +7,17 @@
 
 {% block content %}
 
-{% load cache %}
-{% cache 86400 home %}
+<!-- {% load cache %}
+{% cache 86400 home %} -->
 
   {% for panel in dashboard_panels %}
-    <div class="shadow border">
-    <p>{{ panel.dashboard_title }}</p>
-    <a href="{{ panel.dashboard_link }}">View Dashboard</a>
+    <div class="Dashboard">
+      <h1 class="Dashboard-Title">{{ panel.dashboard_title }}</h1>
+      <a class="Dashboard-Link" href="{{ panel.dashboard_link }}">View Dashboard</a>
     </div>
   {% endfor %}
 
-{% endcache %}
+<!-- {% endcache %} -->
 
 {% endblock content %}
 

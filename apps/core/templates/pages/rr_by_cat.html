@@ -7,24 +7,24 @@
 
 {% block content %}
 
-{% load cache %}
-{% cache 86400 cat_rr %}
+<!-- {% load cache %}
+{% cache 86400 cat_rr %} -->
 
   <div>
-    <table class = "table-styling">
+    <table class = "CategoryTable">
       <thead>
         <tr>
-          <th>Product Category</th>
-          <th>Return Rate %</th>
+          <th class="CategoryTable-Titles">Product Category</th>
+          <th class="CategoryTable-Titles">Return Rate %</th>
         </tr>
       </thead>
       <tbody>
         {% for category_rate in category_rates %}
           {%if category_rate.dashboard_title == 'Category Return Rate Table' %}
             {% for name, percentage in category_rate.cat_rr.items %}
-              <tr>
-                <th>{{name}}</th>
-                <th>{{percentage}}%</th>
+              <tr class="CategoryTable-Rows">
+                <th class="CategoryTable-Content">{{name}}</th>
+                <th class="CategoryTable-Content">{{percentage}}%</th>
               </tr>
             {% endfor %}
           {%endif%}
@@ -34,5 +34,5 @@
     </table>
   </div>
 
-{% endcache %}
+<!-- {% endcache %} -->
 {% endblock content %}
